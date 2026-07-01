@@ -286,44 +286,6 @@ h3 {
 
 .image-frame {
   position: relative;
-  isolation: isolate;
-}
-
-.image-frame::before {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  background:
-    linear-gradient(90deg, rgba(255, 253, 248, 0.12), rgba(255, 255, 255, 0.5), rgba(255, 253, 248, 0.12)),
-    rgba(0, 79, 158, 0.035);
-  background-size: 240% 100%;
-  content: "";
-  opacity: 1;
-  animation: lazyShimmer 1.4s ease-in-out infinite;
-  transition: opacity 420ms ease;
-}
-
-.image-frame.is-loaded::before {
-  opacity: 0;
-  animation: none;
-}
-
-.image-frame img {
-  position: relative;
-  z-index: 1;
-  opacity: 1;
-  filter: blur(0) saturate(1);
-  transition: opacity 520ms ease, filter 720ms ease;
-}
-
-.enhanced .image-frame:not(.is-loaded) img {
-  opacity: 0;
-  filter: blur(9px) saturate(0.92);
-}
-
-.image-frame.is-loaded img {
-  opacity: 1;
-  filter: blur(0) saturate(1);
 }
 
 .proof-row {
@@ -380,11 +342,6 @@ h3 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  animation: softZoom 18s ease-in-out infinite alternate;
-}
-
-.hero-media:hover img {
-  filter: blur(0) saturate(1.04) contrast(1.02);
 }
 
 .estimate {
@@ -397,7 +354,6 @@ h3 {
   border-radius: 6px;
   background: rgba(255, 253, 248, 0.86);
   box-shadow: 0 18px 48px rgba(40, 35, 26, 0.16);
-  backdrop-filter: blur(16px);
   transition: transform 260ms ease, box-shadow 260ms ease, background 260ms ease;
 }
 
@@ -511,11 +467,6 @@ form small {
   max-width: none;
   height: 100%;
   object-fit: cover;
-  transition: filter 340ms ease;
-}
-
-.package-card:hover .package-shot img {
-  filter: saturate(1.08) contrast(1.02);
 }
 
 .package-basic img {
@@ -647,12 +598,11 @@ form small {
   width: 100%;
   aspect-ratio: 1.52;
   object-fit: cover;
-  transition: transform 900ms ease, filter 420ms ease;
+  transition: transform 520ms ease;
 }
 
 .comparison:hover img {
-  filter: saturate(1.06) contrast(1.02);
-  transform: scale(1.025);
+  transform: scale(1.018);
 }
 
 .compare-labels {
@@ -737,12 +687,6 @@ form small {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: transform 620ms ease, filter 360ms ease;
-}
-
-.process-main:hover .process-icons-strip img {
-  filter: contrast(1.04);
-  transform: translateX(8px);
 }
 
 .process-list b {
@@ -1009,40 +953,13 @@ form small {
   height: 62px;
 }
 
-.option-thumb {
-  width: min(118px, 72%);
-  aspect-ratio: 1;
-  height: auto;
-  background-image: url("./assets/materials-strip.png");
-  background-repeat: no-repeat;
-  background-size: 700% 100%;
-  border-radius: 4px;
-}
-
-.option-0 {
-  background-position: 0 50%;
-}
-
-.option-1 {
-  background-position: 16.666% 50%;
-}
-
-.option-2 {
-  background-position: 33.333% 50%;
-}
-
-.option-3 {
-  background-position: 50% 50%;
-}
-
 .plan-thumb {
   display: block;
   width: min(118px, 72%);
   aspect-ratio: 1;
-  background-image: url("./assets/floorplans-transparent.png");
+  background-image: url("./assets/floorplans-transparent.webp");
   background-repeat: no-repeat;
   background-size: 400% 100%;
-  filter: saturate(0.65) contrast(0.95);
 }
 
 .plan-0 {
@@ -1111,12 +1028,6 @@ form small {
   height: 100%;
   min-height: 338px;
   object-fit: cover;
-  transition: transform 800ms ease, filter 420ms ease;
-}
-
-.quiz-visual:hover > img {
-  filter: saturate(1.05);
-  transform: scale(1.03);
 }
 
 .send-project {
@@ -1132,12 +1043,6 @@ form small {
   background: rgba(255, 253, 248, 0.95);
   box-shadow: 0 18px 45px rgba(39, 41, 35, 0.18);
   transform: translate(50%, -50%);
-  transition: transform 260ms ease, box-shadow 260ms ease;
-}
-
-.send-project:hover {
-  box-shadow: 0 22px 54px rgba(39, 41, 35, 0.22);
-  transform: translate(50%, calc(-50% - 3px));
 }
 
 .send-label {
@@ -1297,42 +1202,6 @@ footer a:last-child {
 .section-reveal {
   opacity: 1;
   transform: translateY(0);
-}
-
-.enhanced .section-reveal {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 720ms ease, transform 720ms ease;
-}
-
-.enhanced .section-reveal.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.enhanced .package-card,
-.enhanced .process-list li,
-.enhanced .guarantee-box li,
-.enhanced .answers button {
-  transition-delay: var(--stagger, 0ms);
-}
-
-@keyframes softZoom {
-  from {
-    transform: scale(1.02);
-  }
-  to {
-    transform: scale(1.055) translate(-1.2%, 0.8%);
-  }
-}
-
-@keyframes lazyShimmer {
-  from {
-    background-position: 180% 0;
-  }
-  to {
-    background-position: -60% 0;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
