@@ -1,3 +1,5 @@
+document.documentElement.classList.add("enhanced");
+
 const packages = {
   basic: { name: "Базовый", price: 280000, finish: "Плитка до 60×60 см" },
   comfort: { name: "Комфорт", price: 420000, finish: "Крупноформатная плитка" },
@@ -23,6 +25,27 @@ const answers = {
 };
 
 const money = (value) => new Intl.NumberFormat("ru-RU").format(value) + " ₽";
+
+function markLoadedImages() {
+  document.querySelectorAll(".image-frame").forEach((frame) => {
+    const image = frame.querySelector("img");
+    if (!image) return;
+
+    if (image.complete && image.naturalWidth > 0) {
+      frame.classList.add("is-loaded");
+      return;
+    }
+
+    image.addEventListener("load", () => frame.classList.add("is-loaded"), { once: true });
+    image.addEventListener("error", () => frame.classList.add("is-loaded"), { once: true });
+  });
+}
+
+function applyStagger() {
+  document.querySelectorAll(".package-card, .process-list li, .guarantee-box li").forEach((item, index) => {
+    item.style.setProperty("--stagger", `${Math.min(index * 55, 280)}ms`);
+  });
+}
 
 function getProjectSummary() {
   const price = estimatePrice();
@@ -79,7 +102,7 @@ function renderQuiz() {
   document.querySelector("#questionTitle").textContent = current.question;
   document.querySelector(".question").dataset.step = current.key;
   answerBox.innerHTML = current.options.map((option, index) => `
-    <button type="button" class="${answers[current.key] === option ? "selected" : ""}" data-answer="${option}">
+    <button type="button" class="${answers[current.key] === option ? "selected" : ""}" data-answer="${option}" style="--stagger:${index * 55}ms">
       ${current.key === "area" ? `<span class="plan-thumb plan-${index}"></span>` : ""}
       <span>${option}</span>
     </button>
@@ -166,13 +189,27 @@ document.querySelector("#leadForm").elements.package.addEventListener("change", 
   updateSummary();
 });
 
+function revealVisibleSections() {
+  document.querySelectorAll(".section-reveal").forEach((section) => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top < window.innerHeight * 0.92 && rect.bottom > 0) {
+      section.classList.add("visible");
+    }
+  });
+}
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach((entry) => {
     if (entry.isIntersecting) entry.target.classList.add("visible");
   });
-}, { threshold: 0.14 });
+}, { rootMargin: "0px 0px -6% 0px", threshold: 0.01 });
 
 document.querySelectorAll(".section-reveal").forEach((section) => observer.observe(section));
+window.addEventListener("scroll", revealVisibleSections, { passive: true });
+window.addEventListener("resize", revealVisibleSections);
 
+markLoadedImages();
+applyStagger();
 renderQuiz();
 updateSummary();
+revealVisibleSections();
