@@ -49,6 +49,13 @@
   .request-reference .request-submit { min-height: 56px; font-size: 22px; }
   .request-reference .request-status { margin-top: -12px; }
 }
+html { scroll-padding-top: calc(var(--header-height, 90px) + 16px); }
+body .site-header nav, body .site-header .header-phone { display: flex; }
+body .site-header .header-phone { flex-direction: column; }
+.service-system .system-intro, .service-system .system-panel { top: calc(var(--header-height, 90px) + 10px); }
+.service-system .system-panel:nth-child(2) { top: calc(var(--header-height, 90px) + 20px); }
+.service-system .system-panel:nth-child(3) { top: calc(var(--header-height, 90px) + 30px); }
+.service-system .system-panel:nth-child(4) { top: calc(var(--header-height, 90px) + 40px); }
 :root {
   --bg: #f7f4ee;
   --paper: #fffdf8;
@@ -296,21 +303,25 @@ body .packages-expandable { width: calc(100% - 48px); max-width: none; margin: 2
 
 /* Reference-led first screen, using the existing brand palette. */
 body .site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--bg);
   display: flex;
-  width: calc(100% - 48px);
+  width: 100%;
   min-height: 90px;
   gap: 12px;
-  padding: 16px 0;
+  padding: 16px 24px;
   font-family: "Montserrat", Arial, sans-serif;
 }
 body .site-header .brand { margin-right: auto; gap: 10px; min-width: 0; }
 body .site-header .brand-sign { width: 70px; height: 26px; }
 body .site-header .brand b { font: 700 20px/1 "Montserrat", Arial, sans-serif; }
-body .site-header nav { gap: 6px; font-size: 13px; flex-wrap: nowrap; }
+body .site-header nav { gap: 8px; font-size: 14px; flex-wrap: nowrap; }
 body .site-header nav a, body .site-header .header-phone {
   border-radius: 999px;
-  background: var(--paper);
-  padding: 13px 16px;
+  background: #fff;
+  padding: 15px 20px;
   white-space: nowrap;
 }
 body .site-header nav a::after { display: none; }
@@ -357,7 +368,7 @@ body .hero-reference {
   body .site-header nav { order: 3; width: 100%; justify-content: center; }
 }
 @media (max-width: 700px) {
-  body .site-header { width: calc(100% - 28px); gap: 10px; }
+  body .site-header { width: 100%; padding: 12px 14px; gap: 10px; }
   body .site-header .brand-sign { width: 44px; }
   body .site-header .brand b { font-size: 15px; }
   body .site-header .brand small { font-size: 8px; }
