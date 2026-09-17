@@ -1,5 +1,14 @@
 const leadForm = document.querySelector("#leadForm");
 
+const siteHeader = document.querySelector(".site-header");
+if (siteHeader) {
+  const updateHeaderHeight = () => {
+    document.documentElement.style.setProperty("--header-height", siteHeader.offsetHeight + "px");
+  };
+  new ResizeObserver(updateHeaderHeight).observe(siteHeader);
+  updateHeaderHeight();
+}
+
 const reviewsSection = document.querySelector(".reviews-refresh");
 if (reviewsSection) {
   const slides = [...reviewsSection.querySelectorAll(".review-slide")];
